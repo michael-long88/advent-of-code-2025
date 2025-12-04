@@ -8,7 +8,7 @@ pub fn parse(input: &str) -> Vec<Vec<char>> {
         .collect()
 }
 
-pub fn get_adjacent_count(rows: &Vec<Vec<char>>, row_index: isize, col_index: isize) -> u8 {
+pub fn get_adjacent_count(rows: &[Vec<char>], row_index: isize, col_index: isize) -> u8 {
     let mut roll_count = 0;
     let total_rows = rows.len();
     let total_cols = rows[0].len();
