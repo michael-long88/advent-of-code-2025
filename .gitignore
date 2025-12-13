@@ -30,3 +30,4 @@ dhat-heap.json
 data/timings.json
 
 .vscode/
+.DS_Store
