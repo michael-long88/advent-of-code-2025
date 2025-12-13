@@ -105,6 +105,7 @@ impl Graph {
 pub fn merge_graphs(graphs: &mut Vec<Graph>) {
     let mut merged = true;
     while merged {
+        merged = false;
         let graph_count = graphs.len();
         'outer_loop: for outer_index in 0..graph_count - 1 {
             for inner_index in outer_index + 1..graph_count {
@@ -112,11 +113,11 @@ pub fn merge_graphs(graphs: &mut Vec<Graph>) {
                     let inner_loop_graph = graphs[inner_index].clone();
                     graphs[outer_index].merge(&inner_loop_graph);
                     graphs.remove(inner_index);
+                    merged = true;
                     break 'outer_loop;
                 }
             }
         }
-        merged = false;
     }
 }
 
@@ -173,9 +174,6 @@ pub fn part_one(input: &str) -> Option<usize> {
         }
     }
 
-    let mut graph_sizes: Vec<usize> = graphs.iter().map(|graph| graph.points.len()).collect();
-    graph_sizes.sort();
-
     merge_graphs(&mut graphs);
 
     let mut graph_sizes: Vec<usize> = graphs.iter().map(|graph| graph.points.len()).collect();
@@ -203,6 +201,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, None);
+        assert_eq!(result, Some(25_272));
     }
 }
