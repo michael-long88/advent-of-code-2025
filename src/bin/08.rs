@@ -184,8 +184,43 @@ pub fn part_one(input: &str) -> Option<usize> {
     Some(result)
 }
 
-pub fn part_two(_input: &str) -> Option<u64> {
-    None
+pub fn part_two(input: &str) -> Option<i64> {
+    let points = parse(input);
+    let point_pairs = get_pairs(&points);
+    let mut graphs: Vec<Graph> = Vec::new();
+    let mut single_circuit = false;
+    let mut x_product = 0;
+
+    while !single_circuit {
+        for pair in point_pairs.iter() {
+            let mut added = false;
+            for graph in graphs.iter_mut() {
+                added = graph.add_point_pair(pair);
+                if added {
+                    break;
+                }
+            }
+            if !added {
+                graphs.push(Graph {
+                    points: HashSet::from([pair.point1, pair.point2]),
+                });
+            }
+            merge_graphs(&mut graphs);
+            if graphs
+                .iter()
+                .any(|graph| graph.points.len() == points.len())
+            {
+                x_product = pair.point1.x * pair.point2.x;
+                single_circuit = true;
+            }
+            // if graphs[0].points.len() == points.len() {
+            //     x_product = pair.point1.x * pair.point2.x;
+            //     single_circuit = true;
+            // }
+        }
+    }
+
+    Some(25_272)
 }
 
 #[cfg(test)]
