@@ -189,7 +189,7 @@ pub fn part_two(input: &str) -> Option<i64> {
     let point_pairs = get_pairs(&points);
     let mut graphs: Vec<Graph> = Vec::new();
     let mut single_circuit = false;
-    let mut x_product = 0;
+    let mut _x_product = 0;
 
     while !single_circuit {
         for pair in point_pairs.iter() {
@@ -210,7 +210,7 @@ pub fn part_two(input: &str) -> Option<i64> {
                 .iter()
                 .any(|graph| graph.points.len() == points.len())
             {
-                x_product = pair.point1.x * pair.point2.x;
+                _x_product = pair.point1.x * pair.point2.x;
                 single_circuit = true;
             }
             // if graphs[0].points.len() == points.len() {
