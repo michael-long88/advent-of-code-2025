@@ -1,5 +1,3 @@
-use std::u32;
-
 use itertools::Itertools;
 use nom::{
     IResult, Parser,
@@ -49,14 +47,9 @@ impl Machine {
 }
 
 fn convert_bits_to_string(bits: &[u8]) -> String {
-    let conversion = bits
-        .iter()
+    bits.iter()
         .map(|bit| if bit == &1 { '#' } else { '.' })
-        .collect();
-
-    // println!("Converting {:?} to {}", bits, conversion);
-
-    conversion
+        .collect()
 }
 
 fn parse_indicator_check(input: &str) -> IResult<&str, String> {
@@ -123,7 +116,7 @@ pub fn part_one(input: &str) -> Option<usize> {
     )
 }
 
-pub fn part_two(input: &str) -> Option<u64> {
+pub fn part_two(_input: &str) -> Option<u64> {
     None
 }
 
